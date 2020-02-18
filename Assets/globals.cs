@@ -20,9 +20,12 @@ public enum COLORS
 
 public class globals : MonoBehaviour
 {   
-    public static Dictionary<string, FROM_DIRECTIONS> reachable_moves = new Dictionary<string, FROM_DIRECTIONS>();
-    public static Dictionary<string, string> board = new Dictionary<string, string>();
+
     public static Dictionary<string, COLORS> board_colors = new Dictionary<string, COLORS>();
+
+    public static Dictionary<string, List<FROM_DIRECTIONS>> reachable_moves = new Dictionary<string, List<FROM_DIRECTIONS>>();
+    public static Dictionary<string, int> occupied_squares = new Dictionary<string, int>();
+    // public static Dictionary<string, string> board = new Dictionary<string, string>();
 
     public const int BOARD_WIDTH = 16;
     public const int BOARD_HEIGHT = 12;
@@ -35,7 +38,9 @@ public class globals : MonoBehaviour
     void Awake(){
         for (int i = 0; i < BOARD_WIDTH; i++)
         {
-            reachable_moves.Add(i.ToString() + ",0", FROM_DIRECTIONS.BOTTOM); //bottom row is accessible
+            List<FROM_DIRECTIONS> list = new List<FROM_DIRECTIONS>();
+            list.Add(FROM_DIRECTIONS.BOTTOM);
+            reachable_moves.Add(i.ToString() + ",0", list); //bottom row is accessible
         }
 
         for (int i = 0; i < BOARD_WIDTH; i++)
