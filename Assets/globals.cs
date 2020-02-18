@@ -12,6 +12,7 @@ public enum FROM_DIRECTIONS
 
 public class globals : MonoBehaviour
 {
+    public static bool gameStarted = false;
     public static Dictionary<string, List<FROM_DIRECTIONS>> reachable_moves = new Dictionary<string, List<FROM_DIRECTIONS>>();
     public static Dictionary<string, int> occupied_squares = new Dictionary<string, int>();
     // public static Dictionary<string, string> board = new Dictionary<string, string>();
