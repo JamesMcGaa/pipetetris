@@ -63,6 +63,7 @@ public class drag_drop : MonoBehaviour
          && x_index >= 0 && y_index >= 0 && x_index < globals.BOARD_WIDTH && y_index < globals.BOARD_HEIGHT
          && check_orientation(x_index, y_index, globals.reachable_moves[coord])
          && !globals.occupied_squares.ContainsKey(coord)
+         && check_color(x_index, y_index)
          ){
             //instantiate a new object
             curPosition.x = Mathf.Round(curPosition.x - .5f) + .5f;
@@ -238,5 +239,17 @@ public class drag_drop : MonoBehaviour
         }
         return false;
      }
+
+    
+    bool check_color(int x_index, int y_index){
+      string coord = x_index.ToString() + "," + y_index.ToString();
+      if((gameObject.name.Contains("Blue") && globals.board_colors[coord] != COLORS.BLUE) ||
+      (gameObject.name.Contains("Orange") && globals.board_colors[coord] != COLORS.ORANGE) ||
+      (gameObject.name.Contains("Yellow") && globals.board_colors[coord] != COLORS.YELLOW) ||
+      (gameObject.name.Contains("Green") && globals.board_colors[coord] != COLORS.GREEN)){;
+        return false;
+      }
+      return true;
+    }
 
  }
