@@ -38,6 +38,8 @@ public class drag_drop : MonoBehaviour
 
      void OnMouseDown() {
          //start dragging the object, saving its offset
+        if (!globals.gameStarted)
+          return;
         pressed = true;
         screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
         offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
