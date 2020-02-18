@@ -10,8 +10,8 @@ public class drag_drop : MonoBehaviour
      private bool pressed = false;
      private int times_rotated_ccw = 0;
 
-     private float X_BOTTOM_LEFT_CORNER = -7.5f;
-     private float Y_BOTTOM_LEFT_CORNER = -5.5f;
+     public static float X_BOTTOM_LEFT_CORNER = -7.5f;
+     public static float Y_BOTTOM_LEFT_CORNER = -5.5f;
 
     // Reference to the Prefab. Drag a Prefab into this field in the Inspector.
     public GameObject myPrefab;
