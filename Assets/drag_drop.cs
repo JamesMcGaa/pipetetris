@@ -27,8 +27,8 @@ public class drag_drop : MonoBehaviour
      void Update()
      {
          if((Input.GetMouseButtonDown(1) || Input.GetKeyUp("space")) && pressed){ //right click
-            transform.Rotate(0,0,-90); //Counterclockwise
-            times_rotated_ccw = (times_rotated_ccw + 1) % 4;
+            transform.Rotate(0,0,-90); //Clockwise
+            times_rotated_cw = (times_rotated_cw + 1) % 4;
          }
      }
 
