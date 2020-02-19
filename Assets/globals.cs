@@ -23,6 +23,8 @@ public class globals : MonoBehaviour
     public static bool gameStarted = false;
     public static bool gameLoaded = false;
     public static bool gameWon = false;
+    public static bool gameLost = false;
+    public static int finishedPieces = 0;
     public static Dictionary<string, COLORS> board_colors = new Dictionary<string, COLORS>();
     public static Dictionary<string, Object> color_squares = new Dictionary<string, Object>();
     public static Dictionary<string, List<FROM_DIRECTIONS>> reachable_moves = new Dictionary<string, List<FROM_DIRECTIONS>>();
@@ -36,11 +38,15 @@ public class globals : MonoBehaviour
     public GameObject yellow;
     public GameObject green;
     public GameObject blue;
+    public Vector3 victoryPos = new Vector3(0, 0, 0);
+    public GameObject victory;
+    public Vector3 defeatPos = new Vector3(0, 0, 0);
+    public GameObject defeat;
 
-    void Update(){
+
+    void Update() {
         if (gameStarted && !gameLoaded) {
           gameLoaded = true;
-          enabled = false;
           for (int i = 0; i < BOARD_WIDTH; i++)
           {
               List<FROM_DIRECTIONS> list = new List<FROM_DIRECTIONS>();
@@ -75,6 +81,14 @@ public class globals : MonoBehaviour
                   }
               }
           }
+        }
+        if (gameWon) {
+          Instantiate(victory, victoryPos, Quaternion.identity);
+          enabled = false;
+        }
+        if (gameLost) {
+          Instantiate(defeat, defeatPos, Quaternion.identity);
+          enabled = false;
         }
     }
 }
