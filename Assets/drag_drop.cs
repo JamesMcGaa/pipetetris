@@ -73,6 +73,7 @@ public class drag_drop : MonoBehaviour
             //TODO: update reachable and occupied_squares
             update_reachable(x_index, y_index, coord);
             globals.occupied_squares.Add(coord, 1);
+            Destroy(globals.color_squares[coord]);
          }
 
         //reset state
@@ -240,7 +241,7 @@ public class drag_drop : MonoBehaviour
         return false;
      }
 
-    
+
     bool check_color(int x_index, int y_index){
       string coord = x_index.ToString() + "," + y_index.ToString();
       if((gameObject.name.Contains("Blue") && globals.board_colors[coord] != COLORS.BLUE) ||
