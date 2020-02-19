@@ -17,7 +17,7 @@ void Update()
     //     print("null");
         
     // }
-    if(! globals.gameStarted){
+    if(! globals.gameStarted || globals.gameLost || globals.gameWon){
         return;
     }
 
