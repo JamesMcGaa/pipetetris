@@ -9,12 +9,13 @@ public class drag_drop : MonoBehaviour
      private Vector3 original_loc;
      private bool pressed = false;
      private int times_rotated_cw = 0;
+     private int stock;
 
      public static float X_BOTTOM_LEFT_CORNER = -7.5f;
      public static float Y_BOTTOM_LEFT_CORNER = -5.5f;
 
     // Reference to the Prefab. Drag a Prefab into this field in the Inspector.
-    public int stock = 5;
+    public int startingStock = 5;
     public GameObject myPrefab;
     // This script will simply instantiate the Prefab when the game starts.
 
@@ -22,7 +23,7 @@ public class drag_drop : MonoBehaviour
 
     void Start(){
         original_loc = gameObject.transform.position;
-
+        stock = startingStock;
     }
 
      void Update()
@@ -61,6 +62,7 @@ public class drag_drop : MonoBehaviour
         //  Debug.Log(x_index.ToString() + "," + y_index.ToString());
          string coord = x_index.ToString() + "," + y_index.ToString();
          if(globals.reachable_moves.ContainsKey(coord)
+         && stock > 0
          && x_index >= 0 && y_index >= 0 && x_index < globals.BOARD_WIDTH && y_index < globals.BOARD_HEIGHT
          && check_orientation(x_index, y_index, globals.reachable_moves[coord])
          && !globals.occupied_squares.ContainsKey(coord)
@@ -75,6 +77,7 @@ public class drag_drop : MonoBehaviour
             update_reachable(x_index, y_index, coord);
             globals.occupied_squares.Add(coord, 1);
             Destroy(globals.color_squares[coord]);
+            update_stock();
             update_victory();
          }
 
@@ -253,6 +256,14 @@ public class drag_drop : MonoBehaviour
         return false;
       }
       return true;
+    }
+
+    void update_stock() {
+      stock--;
+      if (stock == 0) {
+        globals.finishedPieces++;
+        Destroy(gameObject);
+      }
     }
 
     void update_victory() {
