@@ -16,7 +16,7 @@ public GameObject current = null;
 private bool invoked = false;
  void Update () {
      if(!invoked && globals.gameStarted){
-        InvokeRepeating("DisableRandom", 0f, 10f);  //0s delay, repeat every 10s
+        InvokeRepeating("DisableRandom", 0f, 3f);  //0s delay, repeat every 10s
         invoked = true;
      }
  }
