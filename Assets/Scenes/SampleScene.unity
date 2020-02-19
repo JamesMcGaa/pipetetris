@@ -2919,7 +2919,7 @@ MonoBehaviour:
   orange: {fileID: 349760559}
   yellow: {fileID: 1576575250}
   green: {fileID: 2034525529}
-  blue: {fileID: 2034525529}
+  blue: {fileID: 1704593869}
   current: {fileID: 0}
 --- !u!4 &1486133917
 Transform:
