@@ -22,6 +22,7 @@ public class globals : MonoBehaviour
 {
     public static bool gameStarted = false;
     public static bool gameLoaded = false;
+    public static bool gameWon = false;
     public static Dictionary<string, COLORS> board_colors = new Dictionary<string, COLORS>();
     public static Dictionary<string, List<FROM_DIRECTIONS>> reachable_moves = new Dictionary<string, List<FROM_DIRECTIONS>>();
     public static Dictionary<string, int> occupied_squares = new Dictionary<string, int>();
