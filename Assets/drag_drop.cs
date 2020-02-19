@@ -244,10 +244,10 @@ public class drag_drop : MonoBehaviour
 
     bool check_color(int x_index, int y_index){
       string coord = x_index.ToString() + "," + y_index.ToString();
-      if((gameObject.name.Contains("Blue") && globals.board_colors[coord] != COLORS.BLUE) ||
-      (gameObject.name.Contains("Orange") && globals.board_colors[coord] != COLORS.ORANGE) ||
-      (gameObject.name.Contains("Yellow") && globals.board_colors[coord] != COLORS.YELLOW) ||
-      (gameObject.name.Contains("Green") && globals.board_colors[coord] != COLORS.GREEN)){;
+      if((gameObject.name.Contains("Blue") && (globals.board_colors[coord] != COLORS.BLUE || intermittent_interrupt.current_disabled == COLORS.BLUE)) ||
+      (gameObject.name.Contains("Orange") && (globals.board_colors[coord] != COLORS.ORANGE || intermittent_interrupt.current_disabled == COLORS.ORANGE)) ||
+      (gameObject.name.Contains("Yellow") && (globals.board_colors[coord] != COLORS.YELLOW || intermittent_interrupt.current_disabled == COLORS.YELLOW)) ||
+      (gameObject.name.Contains("Green") && (globals.board_colors[coord] != COLORS.GREEN || intermittent_interrupt.current_disabled == COLORS.GREEN))){;
         return false;
       }
       return true;
