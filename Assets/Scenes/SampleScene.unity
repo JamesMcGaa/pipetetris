@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 274052b4b3e27644c98ba784fee039dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingStock: 5
+  startingStock: 1
   myPrefab: {fileID: 1209186020}
 --- !u!212 &26872876
 SpriteRenderer:
@@ -269,7 +269,7 @@ MonoBehaviour:
   victoryPos: {x: 0, y: 0, z: 0}
   victory: {fileID: 480169289}
   defeatPos: {x: 0, y: 0, z: 0}
-  defeat: {fileID: 0}
+  defeat: {fileID: 964583800}
 --- !u!4 &57217944
 Transform:
   m_ObjectHideFlags: 0
@@ -341,7 +341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 274052b4b3e27644c98ba784fee039dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingStock: 5
+  startingStock: 1
   myPrefab: {fileID: 2068628462}
 --- !u!212 &322229419
 SpriteRenderer:
@@ -848,7 +848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 274052b4b3e27644c98ba784fee039dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingStock: 5
+  startingStock: 1
   myPrefab: {fileID: 1496539212}
 --- !u!212 &534315643
 SpriteRenderer:
@@ -1181,7 +1181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 274052b4b3e27644c98ba784fee039dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingStock: 5
+  startingStock: 1
   myPrefab: {fileID: 835452050}
 --- !u!212 &600409744
 SpriteRenderer:
@@ -1302,7 +1302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 274052b4b3e27644c98ba784fee039dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingStock: 5
+  startingStock: 1
   myPrefab: {fileID: 1966576910}
 --- !u!212 &687056537
 SpriteRenderer:
@@ -1467,7 +1467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 274052b4b3e27644c98ba784fee039dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingStock: 5
+  startingStock: 1
   myPrefab: {fileID: 2107020731}
 --- !u!212 &735097055
 SpriteRenderer:
@@ -2001,7 +2001,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 274052b4b3e27644c98ba784fee039dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingStock: 5
+  startingStock: 1
   myPrefab: {fileID: 1789703540}
 --- !u!212 &936488713
 SpriteRenderer:
@@ -2201,7 +2201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 274052b4b3e27644c98ba784fee039dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingStock: 5
+  startingStock: 1
   myPrefab: {fileID: 534921697}
 --- !u!212 &1031823390
 SpriteRenderer:
@@ -2780,7 +2780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 274052b4b3e27644c98ba784fee039dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingStock: 5
+  startingStock: 1
   myPrefab: {fileID: 486281382}
 --- !u!61 &1375131374
 BoxCollider2D:
@@ -3048,7 +3048,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 274052b4b3e27644c98ba784fee039dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingStock: 5
+  startingStock: 1
   myPrefab: {fileID: 1847961501}
 --- !u!212 &1593411927
 SpriteRenderer:
@@ -3354,7 +3354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 274052b4b3e27644c98ba784fee039dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingStock: 5
+  startingStock: 1
   myPrefab: {fileID: 527617840}
 --- !u!212 &1822084407
 SpriteRenderer:
@@ -4012,7 +4012,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 274052b4b3e27644c98ba784fee039dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingStock: 5
+  startingStock: 1
   myPrefab: {fileID: 562370301}
 --- !u!212 &2111069926
 SpriteRenderer:
