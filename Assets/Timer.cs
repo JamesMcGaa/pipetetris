@@ -22,7 +22,7 @@ void Update()
     }
 
     time += 1 * Time.deltaTime;
-    timerText.text = time.ToString("0");
+    timerText.text = "Time: " + time.ToString("0");
     print(time);
 }
 }
