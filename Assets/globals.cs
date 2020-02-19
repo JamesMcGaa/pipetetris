@@ -48,11 +48,11 @@ public class globals : MonoBehaviour
     void Update() {
         if (gameStarted && !gameLoaded) {
           gameLoaded = true;
-          for (int i = 0; i < BOARD_WIDTH; i++)
+          for (int i = 0; i < BOARD_HEIGHT; i++)
           {
               List<FROM_DIRECTIONS> list = new List<FROM_DIRECTIONS>();
-              list.Add(FROM_DIRECTIONS.BOTTOM);
-              reachable_moves.Add(i.ToString() + ",0", list); //bottom row is accessible
+              list.Add(FROM_DIRECTIONS.LEFT);
+              reachable_moves.Add("0," + i.ToString(), list); // left column is accessible
           }
 
           for (int i = 0; i < BOARD_WIDTH; i++)

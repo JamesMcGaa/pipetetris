@@ -271,7 +271,7 @@ public class drag_drop : MonoBehaviour
 
     void update_victory() {
       foreach (string key in globals.reachable_moves.Keys){
-            if (int.Parse(key.Substring(key.IndexOf(',') + 1)) >= globals.BOARD_HEIGHT) {
+            if (int.Parse(key.Substring(0,key.IndexOf(','))) >= globals.BOARD_WIDTH) {
                 globals.gameWon = true;
                 break;
             }
