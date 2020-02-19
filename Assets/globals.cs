@@ -33,6 +33,7 @@ public class globals : MonoBehaviour
 
     public const int BOARD_WIDTH = 16;
     public const int BOARD_HEIGHT = 12;
+    public const int numPieces = 12;
 
     public GameObject orange;
     public GameObject yellow;
@@ -85,8 +86,8 @@ public class globals : MonoBehaviour
         if (gameWon) {
           Instantiate(victory, victoryPos, Quaternion.identity);
           enabled = false;
-        }
-        if (gameLost) {
+          return;
+        } else if (gameLost) {
           Instantiate(defeat, defeatPos, Quaternion.identity);
           enabled = false;
         }

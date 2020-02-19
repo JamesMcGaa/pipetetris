@@ -15,7 +15,7 @@ public class drag_drop : MonoBehaviour
      public static float Y_BOTTOM_LEFT_CORNER = -5.5f;
 
     // Reference to the Prefab. Drag a Prefab into this field in the Inspector.
-    public int startingStock = 5;
+    public int startingStock = 1;
     public GameObject myPrefab;
     // This script will simply instantiate the Prefab when the game starts.
 
@@ -77,8 +77,8 @@ public class drag_drop : MonoBehaviour
             update_reachable(x_index, y_index, coord);
             globals.occupied_squares.Add(coord, 1);
             Destroy(globals.color_squares[coord]);
-            update_stock();
             update_victory();
+            update_stock();
          }
 
         //reset state
@@ -262,6 +262,9 @@ public class drag_drop : MonoBehaviour
       stock--;
       if (stock == 0) {
         globals.finishedPieces++;
+        if (globals.finishedPieces == globals.numPieces) {
+          globals.gameLost = true;
+        }
         Destroy(gameObject);
       }
     }
