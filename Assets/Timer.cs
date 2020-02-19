@@ -22,7 +22,11 @@ void Update()
     }
 
     time += 1 * Time.deltaTime;
-    timerText.text = "Time: " + time.ToString("0");
+ 
+    string minutes = Mathf.Floor(time / 60).ToString("00");
+    string seconds = Mathf.Floor(time % 60).ToString("00");
+     
+    timerText.text = "Time: " + string.Format("{0}:{1}", minutes, seconds);
     print(time);
 }
 }
