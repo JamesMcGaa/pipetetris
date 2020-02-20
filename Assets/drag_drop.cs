@@ -100,6 +100,7 @@ public class drag_drop : MonoBehaviour
             Destroy(globals.color_squares[coord]);
             update_victory();
             update_stock();
+            globals.turnsTaken++;
          }
 
         //reset state
