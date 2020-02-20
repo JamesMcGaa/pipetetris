@@ -18,8 +18,18 @@ public enum COLORS
     BLUE
 }
 
+public enum DIFFICULTY
+{
+    EASY,
+    MEDIUM,
+    HARD,
+    INSANE,
+    EXTREME
+}
+
 public class globals : MonoBehaviour
 {
+    public static DIFFICULTY difficulty_level = DIFFICULTY.EASY;
     public static bool gameStarted = false;
     public static bool gameLoaded = false;
     public static bool gameWon = false;
