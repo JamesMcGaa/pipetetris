@@ -1,21 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class drag_drop : MonoBehaviour
  {
      private Vector3 screenPoint;
      private Vector3 offset;
      private Vector3 original_loc;
+     private TextMeshPro text;
      private bool pressed = false;
      private int times_rotated_cw = 0;
      private int stock;
+     private bool textDisplayed = false;
+     private Vector3 textPosition;
+     private Vector3 textOffset = new Vector3(-1.2f, 0, 0);
+     private Vector3 straightTextOffset = new Vector3(-0.75f, 0, 0);
+     private int startingStock = 0;
 
      public static float X_BOTTOM_LEFT_CORNER = -7.5f;
      public static float Y_BOTTOM_LEFT_CORNER = -5.5f;
 
     // Reference to the Prefab. Drag a Prefab into this field in the Inspector.
-    public int startingStock = 1;
+    public TextMeshPro myText;
     public GameObject myPrefab;
     // This script will simply instantiate the Prefab when the game starts.
 
@@ -23,15 +30,29 @@ public class drag_drop : MonoBehaviour
 
     void Start(){
         original_loc = gameObject.transform.position;
+        if (gameObject.name.Contains("Straight")){
+          startingStock = 5;
+          textOffset = straightTextOffset;
+        } else if (gameObject.name.Contains("Split")){
+          startingStock = 3;
+        } else if (gameObject.name.Contains("Turn")){
+          startingStock = 10;
+        }
+        textPosition = gameObject.transform.position + textOffset;
         stock = startingStock;
     }
 
      void Update()
      {
-         if((Input.GetMouseButtonDown(1) || Input.GetKeyUp("space")) && pressed){ //right click
-            transform.Rotate(0,0,-90); //Clockwise
-            times_rotated_cw = (times_rotated_cw + 1) % 4;
-         }
+       if (!textDisplayed && globals.gameStarted) {
+          text = Instantiate(myText, textPosition, Quaternion.identity);
+          text.text = stock.ToString();
+          textDisplayed = true;
+       }
+       if((Input.GetMouseButtonDown(1) || Input.GetKeyUp("space")) && pressed){ //right click
+          transform.Rotate(0,0,-90); //Clockwise
+          times_rotated_cw = (times_rotated_cw + 1) % 4;
+       }
      }
 
      void OnSpaceDown() {
@@ -260,18 +281,20 @@ public class drag_drop : MonoBehaviour
 
     void update_stock() {
       stock--;
+      text.text = stock.ToString();
       if (stock == 0) {
         globals.finishedPieces++;
         if (globals.finishedPieces == globals.numPieces) {
           globals.gameLost = true;
         }
+        Destroy(text);
         Destroy(gameObject);
       }
     }
 
     void update_victory() {
       foreach (string key in globals.reachable_moves.Keys){
-            if (int.Parse(key.Substring(key.IndexOf(',') + 1)) >= globals.BOARD_HEIGHT) {
+            if (int.Parse(key.Substring(0,key.IndexOf(','))) >= globals.BOARD_WIDTH) {
                 globals.gameWon = true;
                 break;
             }
