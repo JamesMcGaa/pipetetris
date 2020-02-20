@@ -53,13 +53,48 @@ private bool invoked = false;
         invoked = true;
      }
  }
+Dictionary<COLORS, int> GetColorWeights() {
+Dictionary<COLORS, int> color_weights = new Dictionary<COLORS, int>();
+    
+    foreach(string coord in globals.reachable_moves.Keys){
+        // reachable and on screen but not occupied
+        int comma_index = coord.IndexOf(',');
+        int x_coord;
+        int y_coord;
+        int.TryParse(coord.Substring(comma_index+1), out y_coord);
+        int.TryParse(coord.Substring(0,comma_index), out x_coord);
 
+
+        bool inbounds = x_coord >= 0 && x_coord < globals.BOARD_WIDTH && y_coord >= 0 && y_coord < globals.BOARD_HEIGHT;
+        if(! globals.occupied_squares.ContainsKey(coord) && inbounds){
+            //print("game loaded" + globals.gameLoaded);
+            //print("coord" + coord);
+            print(globals.board_colors[coord]);
+            COLORS color = globals.board_colors[coord];
+
+            if(! color_weights.ContainsKey(color)){
+                color_weights.Add(color,y_coord * y_coord);
+            }
+            else{
+                color_weights[color] += y_coord * y_coord;
+            }
+        }
+        
+    }
+    foreach(COLORS color in color_weights.Keys){
+        print("color" + color + "weight" + color_weights[color]);
+    }
+    return color_weights;
+}
+    
  void DisableRandom() {
+     GetColorWeights();
     int x = Random.Range (0, 4);
     if(current != null){
         Destroy(current);
         current = null;
     }
+
     switch (x) {
             case 0:
             current_disabled = COLORS.BLUE;
