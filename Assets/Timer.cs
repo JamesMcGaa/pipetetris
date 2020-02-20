@@ -27,6 +27,6 @@ void Update()
     string seconds = Mathf.Floor(time % 60).ToString("00");
      
     timerText.text = "Time: " + string.Format("{0}:{1}", minutes, seconds);
-    print(time);
+    //print(time);
 }
 }
