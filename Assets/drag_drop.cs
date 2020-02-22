@@ -12,6 +12,7 @@ public class drag_drop : MonoBehaviour
      private bool pressed = false;
      private int times_rotated_cw = 0;
      private int stock;
+     private COLORS color;
      private bool textDisplayed = false;
      private Vector3 textPosition;
      private Vector3 textOffset = new Vector3(-1.2f, 0, 0);
@@ -38,8 +39,21 @@ public class drag_drop : MonoBehaviour
         } else if (gameObject.name.Contains("Turn")){
           startingStock = 10;
         }
+
+        if (gameObject.name.Contains("Blue")) {
+          color = COLORS.BLUE;
+        } else if (gameObject.name.Contains("Orange")) {
+          color = COLORS.ORANGE;
+        } else if (gameObject.name.Contains("Yellow")) {
+          color = COLORS.YELLOW;
+        } else if (gameObject.name.Contains("Green")) {
+          color = COLORS.GREEN;
+        }
+
         textPosition = gameObject.transform.position + textOffset;
         stock = startingStock;
+        globals.piece_color_counts[color] += startingStock;
+        globals.numPieces += startingStock;
     }
 
      void Update()
@@ -282,9 +296,12 @@ public class drag_drop : MonoBehaviour
 
     void update_stock() {
       stock--;
+      globals.piece_color_counts[color]--;
+      globals.finishedPieces++;
+      Debug.Log(globals.finishedPieces);
       text.text = stock.ToString();
       if (stock == 0) {
-        globals.finishedPieces++;
+        //globals.finishedPieces++;
         if (globals.finishedPieces == globals.numPieces) {
           globals.gameLost = true;
         }
@@ -292,6 +309,8 @@ public class drag_drop : MonoBehaviour
         Destroy(gameObject);
       }
     }
+
+
 
     void update_victory() {
       foreach (string key in globals.reachable_moves.Keys){

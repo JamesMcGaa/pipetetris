@@ -35,17 +35,24 @@ public class globals : MonoBehaviour
     public static bool gameWon = false;
     public static bool gameLost = false;
     public static int finishedPieces = 0;
+    public static int numPieces = 0;
     public static int turnsTaken = 0;
     public static int timesDisabled = 0;
     public static Dictionary<string, COLORS> board_colors = new Dictionary<string, COLORS>();
     public static Dictionary<string, Object> color_squares = new Dictionary<string, Object>();
     public static Dictionary<string, List<FROM_DIRECTIONS>> reachable_moves = new Dictionary<string, List<FROM_DIRECTIONS>>();
     public static Dictionary<string, int> occupied_squares = new Dictionary<string, int>();
+    public static Dictionary<COLORS, int> piece_color_counts = new Dictionary<COLORS, int>
+    {
+      {COLORS.BLUE, 0},
+      {COLORS.GREEN, 0},
+      {COLORS.ORANGE, 0},
+      {COLORS.YELLOW, 0}
+    };
     // public static Dictionary<string, string> board = new Dictionary<string, string>();
 
     public const int BOARD_WIDTH = 16;
     public const int BOARD_HEIGHT = 12;
-    public const int numPieces = 12;
 
     public GameObject orange;
     public GameObject yellow;
@@ -58,6 +65,7 @@ public class globals : MonoBehaviour
 
 
     void Update() {
+        Debug.Log(numPieces);
         if (gameStarted && !gameLoaded) {
           gameLoaded = true;
           for (int i = 0; i < BOARD_HEIGHT; i++)

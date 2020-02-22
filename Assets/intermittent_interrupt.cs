@@ -34,6 +34,11 @@ void Start() {
   squares[COLORS.YELLOW] = yellow;
   squares[COLORS.GREEN] = green;
   squares[COLORS.BLUE] = blue;
+
+  //globals.piece_color_counts[COLORS.ORANGE] = 0;
+  //globals.piece_color_counts[COLORS.YELLOW] = 0;
+  //globals.piece_color_counts[COLORS.GREEN] = 0;
+  //globals.piece_color_counts[COLORS.BLUE] = 0;
 }
 
 void Update () {
@@ -120,8 +125,10 @@ Dictionary<COLORS, int> GetColorWeights() {
         current =  Instantiate(squares[color], curPosition, Quaternion.identity);
       }
       bottom += color_weights[color];
-    }
-    Debug.Log(current_disabled);
 
+      if (globals.numPieces - globals.finishedPieces == globals.piece_color_counts[current_disabled]) {
+        globals.gameLost = true;
+      }
+    }
  }
 }
