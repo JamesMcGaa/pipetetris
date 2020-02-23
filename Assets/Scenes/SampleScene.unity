@@ -5267,10 +5267,18 @@ MonoBehaviour:
   m_text: 'INSTRUCTIONS
 
 
-    Left-click and drag to move pieces.
+    Build a continuous path from left to right to win!
 
 
-    Spacebar or right-click to rotate.
+    Start on any square in the far left column; end on any square in the far right
+    column.
+
+
+    You can have multiple paths going at once.
+
+
+    Left-click and hold to select a piece, then right-click or press spacebar to rotate
+    it.
 
 
     Place pieces only on squares of their own color.
@@ -5279,9 +5287,10 @@ MonoBehaviour:
     No placing pieces of the disabled color.
 
 
-    Build a continuous path from left to right to win!
+    The enemy chooses a disabled color every time you play a piece.
 
-'
+
+    Good luck!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5309,8 +5318,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 4.5
-  m_fontSizeBase: 4.5
+  m_fontSize: 3.5
+  m_fontSizeBase: 3.5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5326,7 +5335,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 187
+  m_firstOverflowCharacterIndex: 358
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -5350,12 +5359,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: -1.8279886, z: 1.4894667, w: -7.582757}
   m_textInfo:
     textComponent: {fileID: 1820557443}
-    characterCount: 230
+    characterCount: 454
     spriteCount: 0
-    spaceCount: 43
-    wordCount: 38
+    spaceCount: 89
+    wordCount: 82
     linkCount: 0
-    lineCount: 23
+    lineCount: 33
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -5442,7 +5451,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -16.2, y: 3.72}
+  m_AnchoredPosition: {x: -16.2, y: 4.13}
   m_SizeDelta: {x: 4.865, y: 1.006}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1822084404
