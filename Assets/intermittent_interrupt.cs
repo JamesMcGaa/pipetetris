@@ -94,10 +94,10 @@ Dictionary<COLORS, int> GetColorWeights() {
             COLORS color = globals.board_colors[coord];
 
             if(!color_weights.ContainsKey(color)){
-                color_weights.Add(color, (int)Math.Pow(2, x_coord+1));
+                color_weights.Add(color, (int)Math.Pow(2.5, x_coord+1));
             }
             else{
-                color_weights[color] += (int)Math.Pow(2, x_coord+1);
+                color_weights[color] += (int)Math.Pow(2.5, x_coord+1);
             }
         }
 
