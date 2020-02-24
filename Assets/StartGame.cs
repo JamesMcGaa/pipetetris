@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class StartGame : MonoBehaviour
 {
+    private bool displayed = false;
     private float x_offset = 5.5f;
     private float y_offset = 4.0f;
     private Dictionary<DIFFICULTY, Vector3> button_positions = new Dictionary<DIFFICULTY, Vector3>();
@@ -17,6 +18,26 @@ public class StartGame : MonoBehaviour
     public GameObject button;
 
     void Start() {
+      Display();
+    }
+
+    void Update() {
+      if (globals.gameStarted && displayed) {
+        foreach (DIFFICULTY diff in start_buttons.Keys) {
+          Destroy(start_buttons[diff]);
+        }
+        foreach (DIFFICULTY diff in start_icons.Keys) {
+          Destroy(start_icons[diff]);
+        }
+        displayed = false;
+      }
+      if (globals.gameRestarting && !displayed) {
+        Display();
+      }
+    }
+
+    void Display() {
+      displayed = true;
       button_positions[DIFFICULTY.EASY] = new Vector3(-x_offset, y_offset, 0);
       button_positions[DIFFICULTY.MEDIUM] = new Vector3(x_offset, y_offset, 0);
       button_positions[DIFFICULTY.HARD] = new Vector3(0, 0, 0);
@@ -32,17 +53,4 @@ public class StartGame : MonoBehaviour
       start_icons[DIFFICULTY.INSANE] = Instantiate(insane, button_positions[DIFFICULTY.INSANE], Quaternion.identity);
       start_icons[DIFFICULTY.EXTREME] = Instantiate(extreme, button_positions[DIFFICULTY.EXTREME], Quaternion.identity);
     }
-
-    void Update() {
-      if (globals.gameStarted) {
-        foreach (DIFFICULTY diff in start_buttons.Keys) {
-          Destroy(start_buttons[diff]);
-        }
-        foreach (DIFFICULTY diff in start_icons.Keys) {
-          Destroy(start_icons[diff]);
-        }
-        enabled = false;
-      }
-    }
-
 }

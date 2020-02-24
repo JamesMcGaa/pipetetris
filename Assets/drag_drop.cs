@@ -17,6 +17,7 @@ public class drag_drop : MonoBehaviour
      private Vector3 textOffset = new Vector3(-1.2f, 0, 0);
      private Vector3 straightTextOffset = new Vector3(-0.75f, 0, 0);
      private bool ready = false;
+     private List<GameObject> clones = new List<GameObject>();
 
      public static float X_BOTTOM_LEFT_CORNER = -7.5f;
      public static float Y_BOTTOM_LEFT_CORNER = -5.5f;
@@ -46,68 +47,11 @@ public class drag_drop : MonoBehaviour
 
      void Update()
      {
+       if (globals.gameRestarting && ready) {
+         Restart();
+       }
        if (!ready && globals.gameStarted) {
-         ready = true;
-         switch(globals.difficulty_level) {
-           case DIFFICULTY.EASY:
-             if (gameObject.name.Contains("Straight")){
-               globals.piece_stocks[gameObject.name] = 8;
-               textOffset = straightTextOffset;
-             } else if (gameObject.name.Contains("Split")){
-               globals.piece_stocks[gameObject.name] = 5;
-             } else if (gameObject.name.Contains("Turn")){
-               globals.piece_stocks[gameObject.name] = 15;
-             }
-             break;
-           case DIFFICULTY.MEDIUM:
-             if (gameObject.name.Contains("Straight")){
-               globals.piece_stocks[gameObject.name] = 7;
-               textOffset = straightTextOffset;
-             } else if (gameObject.name.Contains("Split")){
-               globals.piece_stocks[gameObject.name] = 4;
-             } else if (gameObject.name.Contains("Turn")){
-               globals.piece_stocks[gameObject.name] = 12;
-             }
-             break;
-           case DIFFICULTY.HARD:
-             if (gameObject.name.Contains("Straight")){
-               globals.piece_stocks[gameObject.name] = 6;
-               textOffset = straightTextOffset;
-             } else if (gameObject.name.Contains("Split")){
-               globals.piece_stocks[gameObject.name] = 4;
-             } else if (gameObject.name.Contains("Turn")){
-               globals.piece_stocks[gameObject.name] = 10;
-             }
-             break;
-           case DIFFICULTY.INSANE:
-             if (gameObject.name.Contains("Straight")){
-               globals.piece_stocks[gameObject.name] = 5;
-               textOffset = straightTextOffset;
-             } else if (gameObject.name.Contains("Split")){
-               globals.piece_stocks[gameObject.name] = 3;
-             } else if (gameObject.name.Contains("Turn")){
-               globals.piece_stocks[gameObject.name] = 8;
-             }
-             break;
-           case DIFFICULTY.EXTREME:
-             if (gameObject.name.Contains("Straight")){
-               globals.piece_stocks[gameObject.name] = 4;
-               textOffset = straightTextOffset;
-             } else if (gameObject.name.Contains("Split")){
-               globals.piece_stocks[gameObject.name] = 2;
-             } else if (gameObject.name.Contains("Turn")){
-               globals.piece_stocks[gameObject.name] = 7;
-             }
-             break;
-         }
-         textPosition = gameObject.transform.position + textOffset;
-         globals.piece_color_counts[color] += globals.piece_stocks[gameObject.name];
-         globals.numPieces += globals.piece_stocks[gameObject.name];
-         if (!textDisplayed && globals.gameStarted) {
-            text = Instantiate(myText, textPosition, Quaternion.identity);
-            text.text = globals.piece_stocks[gameObject.name].ToString();
-            textDisplayed = true;
-         }
+         Load();
        }
 
        if((Input.GetMouseButtonDown(1) || Input.GetKeyUp("space")) && pressed){ //right click
@@ -116,8 +60,78 @@ public class drag_drop : MonoBehaviour
        }
      }
 
-     void OnSpaceDown() {
+     void Load() {
+       ready = true;
+       switch(globals.difficulty_level) {
+         case DIFFICULTY.EASY:
+           if (gameObject.name.Contains("Straight")){
+             globals.piece_stocks[gameObject.name] = 8;
+             textOffset = straightTextOffset;
+           } else if (gameObject.name.Contains("Split")){
+             globals.piece_stocks[gameObject.name] = 5;
+           } else if (gameObject.name.Contains("Turn")){
+             globals.piece_stocks[gameObject.name] = 15;
+           }
+           break;
+         case DIFFICULTY.MEDIUM:
+           if (gameObject.name.Contains("Straight")){
+             globals.piece_stocks[gameObject.name] = 7;
+             textOffset = straightTextOffset;
+           } else if (gameObject.name.Contains("Split")){
+             globals.piece_stocks[gameObject.name] = 4;
+           } else if (gameObject.name.Contains("Turn")){
+             globals.piece_stocks[gameObject.name] = 12;
+           }
+           break;
+         case DIFFICULTY.HARD:
+           if (gameObject.name.Contains("Straight")){
+             globals.piece_stocks[gameObject.name] = 6;
+             textOffset = straightTextOffset;
+           } else if (gameObject.name.Contains("Split")){
+             globals.piece_stocks[gameObject.name] = 4;
+           } else if (gameObject.name.Contains("Turn")){
+             Debug.Log(gameObject.name);
+             globals.piece_stocks[gameObject.name] = 10;
+             Debug.Log(globals.piece_stocks[gameObject.name]);
+           }
+           break;
+         case DIFFICULTY.INSANE:
+           if (gameObject.name.Contains("Straight")){
+             globals.piece_stocks[gameObject.name] = 5;
+             textOffset = straightTextOffset;
+           } else if (gameObject.name.Contains("Split")){
+             globals.piece_stocks[gameObject.name] = 3;
+           } else if (gameObject.name.Contains("Turn")){
+             globals.piece_stocks[gameObject.name] = 8;
+           }
+           break;
+         case DIFFICULTY.EXTREME:
+           if (gameObject.name.Contains("Straight")){
+             globals.piece_stocks[gameObject.name] = 4;
+             textOffset = straightTextOffset;
+           } else if (gameObject.name.Contains("Split")){
+             globals.piece_stocks[gameObject.name] = 2;
+           } else if (gameObject.name.Contains("Turn")){
+             globals.piece_stocks[gameObject.name] = 7;
+           }
+           break;
+       }
+       textPosition = gameObject.transform.position + textOffset;
+       globals.piece_color_counts[color] += globals.piece_stocks[gameObject.name];
+       globals.numPieces += globals.piece_stocks[gameObject.name];
+       text = Instantiate(myText, textPosition, Quaternion.identity);
+       text.text = globals.piece_stocks[gameObject.name].ToString();
+       textDisplayed = true;
+     }
 
+     void Restart() {
+       ready = false;
+       textDisplayed = false;
+       Destroy(text);
+       foreach (GameObject clone in clones) {
+         Destroy(clone);
+       }
+       clones = new List<GameObject>();
      }
 
      void OnMouseDown() {
@@ -136,7 +150,8 @@ public class drag_drop : MonoBehaviour
          transform.position = original_loc;
          Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
          Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint)+offset;
-
+         Debug.Log(gameObject.name);
+         Debug.Log(globals.piece_stocks[gameObject.name]);
 
         //check if this is a legal move
          int x_index = (int)Mathf.Round(curPosition.x - X_BOTTOM_LEFT_CORNER);
@@ -153,7 +168,7 @@ public class drag_drop : MonoBehaviour
             //instantiate a new object
             curPosition.x = Mathf.Round(curPosition.x - .5f) + .5f;
             curPosition.y = Mathf.Round(curPosition.y - .5f) + .5f;
-            Instantiate(myPrefab, curPosition, gameObject.transform.rotation);
+            clones.Add(Instantiate(myPrefab, curPosition, gameObject.transform.rotation));
 
             //TODO: update reachable and occupied_squares
             update_reachable(x_index, y_index, coord);

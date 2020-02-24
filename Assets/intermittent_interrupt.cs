@@ -27,7 +27,7 @@ public GameObject hard;
 public GameObject insane;
 public GameObject extreme;
 
-public GameObject current = null;
+private GameObject current = null;
 private bool displayed = false;
 
 void Start() {
@@ -43,29 +43,11 @@ void Start() {
 }
 
 void Update () {
+    if (globals.gameRestarting && displayed) {
+      Restart();
+    }
    if(!displayed && globals.gameStarted){
-      switch(globals.difficulty_level)
-      {
-        case DIFFICULTY.EASY:
-          demonIcon = Instantiate(easy, demonPosition, Quaternion.identity);
-          break;
-        case DIFFICULTY.MEDIUM:
-          demonIcon = Instantiate(medium, demonPosition, Quaternion.identity);
-          break;
-        case DIFFICULTY.HARD:
-          demonIcon = Instantiate(hard, demonPosition, Quaternion.identity);
-          break;
-        case DIFFICULTY.INSANE:
-          demonIcon = Instantiate(insane, demonPosition, Quaternion.identity);
-          break;
-        case DIFFICULTY.EXTREME:
-          demonIcon = Instantiate(extreme, demonPosition, Quaternion.identity);
-          break;
-        default:
-          break;
-      }
-      disableIcon = Instantiate(disable, curPosition, Quaternion.identity);
-      displayed = true;
+     Display();
    }
    if(globals.gameLoaded && !globals.gameWon && !globals.gameLost) {
      if (globals.turnsTaken >= globals.timesDisabled) {
@@ -127,6 +109,38 @@ Dictionary<COLORS, int> GetColorWeights() {
     if (globals.numPieces - globals.finishedPieces == globals.piece_color_counts[current_disabled]) {
       globals.gameLost = true;
     }
+ }
+
+ void Display() {
+   switch(globals.difficulty_level)
+   {
+     case DIFFICULTY.EASY:
+       demonIcon = Instantiate(easy, demonPosition, Quaternion.identity);
+       break;
+     case DIFFICULTY.MEDIUM:
+       demonIcon = Instantiate(medium, demonPosition, Quaternion.identity);
+       break;
+     case DIFFICULTY.HARD:
+       demonIcon = Instantiate(hard, demonPosition, Quaternion.identity);
+       break;
+     case DIFFICULTY.INSANE:
+       demonIcon = Instantiate(insane, demonPosition, Quaternion.identity);
+       break;
+     case DIFFICULTY.EXTREME:
+       demonIcon = Instantiate(extreme, demonPosition, Quaternion.identity);
+       break;
+     default:
+       break;
+   }
+   disableIcon = Instantiate(disable, curPosition, Quaternion.identity);
+   displayed = true;
+ }
+
+ void Restart() {
+   displayed = false;
+   Destroy(demonIcon);
+   Destroy(current);
+   Destroy(disableIcon);
  }
 
 }
