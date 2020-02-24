@@ -42,7 +42,6 @@ public class drag_drop : MonoBehaviour
           color = COLORS.GREEN;
         }
 
-
     }
 
      void Update()
@@ -368,7 +367,7 @@ public class drag_drop : MonoBehaviour
           globals.gameLost = true;
         }
         Destroy(text);
-        Destroy(gameObject);
+        DragDropController.DisablePiece(gameObject);
       }
     }
 
