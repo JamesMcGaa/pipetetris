@@ -92,17 +92,14 @@ Dictionary<COLORS, int> GetColorWeights() {
             print(globals.board_colors[coord]);
             COLORS color = globals.board_colors[coord];
 
-            if(! color_weights.ContainsKey(color)){
-                color_weights.Add(color,(x_coord+1) * (x_coord+1));
+            if(!color_weights.ContainsKey(color)){
+                color_weights.Add(color, (x_coord+1) * (x_coord+1));
             }
             else{
                 color_weights[color] += (x_coord+1) * (x_coord+1);
             }
         }
 
-    }
-    foreach(COLORS color in color_weights.Keys){
-        print("color" + color + "weight" + color_weights[color]);
     }
     return color_weights;
 }

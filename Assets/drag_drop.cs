@@ -11,13 +11,12 @@ public class drag_drop : MonoBehaviour
      private TextMeshPro text;
      private bool pressed = false;
      private int times_rotated_cw = 0;
-     private int stock;
      private COLORS color;
      private bool textDisplayed = false;
      private Vector3 textPosition;
      private Vector3 textOffset = new Vector3(-1.2f, 0, 0);
      private Vector3 straightTextOffset = new Vector3(-0.75f, 0, 0);
-     private int startingStock = 0;
+     private bool ready = false;
 
      public static float X_BOTTOM_LEFT_CORNER = -7.5f;
      public static float Y_BOTTOM_LEFT_CORNER = -5.5f;
@@ -31,14 +30,6 @@ public class drag_drop : MonoBehaviour
 
     void Start(){
         original_loc = gameObject.transform.position;
-        if (gameObject.name.Contains("Straight")){
-          startingStock = 5;
-          textOffset = straightTextOffset;
-        } else if (gameObject.name.Contains("Split")){
-          startingStock = 3;
-        } else if (gameObject.name.Contains("Turn")){
-          startingStock = 10;
-        }
 
         if (gameObject.name.Contains("Blue")) {
           color = COLORS.BLUE;
@@ -50,19 +41,75 @@ public class drag_drop : MonoBehaviour
           color = COLORS.GREEN;
         }
 
-        textPosition = gameObject.transform.position + textOffset;
-        stock = startingStock;
-        globals.piece_color_counts[color] += startingStock;
-        globals.numPieces += startingStock;
+
     }
 
      void Update()
      {
-       if (!textDisplayed && globals.gameStarted) {
-          text = Instantiate(myText, textPosition, Quaternion.identity);
-          text.text = stock.ToString();
-          textDisplayed = true;
+       if (!ready && globals.gameStarted) {
+         ready = true;
+         switch(globals.difficulty_level) {
+           case DIFFICULTY.EASY:
+             if (gameObject.name.Contains("Straight")){
+               globals.piece_stocks[gameObject.name] = 8;
+               textOffset = straightTextOffset;
+             } else if (gameObject.name.Contains("Split")){
+               globals.piece_stocks[gameObject.name] = 5;
+             } else if (gameObject.name.Contains("Turn")){
+               globals.piece_stocks[gameObject.name] = 15;
+             }
+             break;
+           case DIFFICULTY.MEDIUM:
+             if (gameObject.name.Contains("Straight")){
+               globals.piece_stocks[gameObject.name] = 7;
+               textOffset = straightTextOffset;
+             } else if (gameObject.name.Contains("Split")){
+               globals.piece_stocks[gameObject.name] = 4;
+             } else if (gameObject.name.Contains("Turn")){
+               globals.piece_stocks[gameObject.name] = 12;
+             }
+             break;
+           case DIFFICULTY.HARD:
+             if (gameObject.name.Contains("Straight")){
+               globals.piece_stocks[gameObject.name] = 6;
+               textOffset = straightTextOffset;
+             } else if (gameObject.name.Contains("Split")){
+               globals.piece_stocks[gameObject.name] = 4;
+             } else if (gameObject.name.Contains("Turn")){
+               globals.piece_stocks[gameObject.name] = 10;
+             }
+             break;
+           case DIFFICULTY.INSANE:
+             if (gameObject.name.Contains("Straight")){
+               globals.piece_stocks[gameObject.name] = 5;
+               textOffset = straightTextOffset;
+             } else if (gameObject.name.Contains("Split")){
+               globals.piece_stocks[gameObject.name] = 3;
+             } else if (gameObject.name.Contains("Turn")){
+               globals.piece_stocks[gameObject.name] = 8;
+             }
+             break;
+           case DIFFICULTY.EXTREME:
+             if (gameObject.name.Contains("Straight")){
+               globals.piece_stocks[gameObject.name] = 4;
+               textOffset = straightTextOffset;
+             } else if (gameObject.name.Contains("Split")){
+               globals.piece_stocks[gameObject.name] = 2;
+             } else if (gameObject.name.Contains("Turn")){
+               globals.piece_stocks[gameObject.name] = 7;
+             }
+             break;
+         }
+         textPosition = gameObject.transform.position + textOffset;
+         globals.piece_color_counts[color] += globals.piece_stocks[gameObject.name];
+         globals.numPieces += globals.piece_stocks[gameObject.name];
+         if (!textDisplayed && globals.gameStarted) {
+            text = Instantiate(myText, textPosition, Quaternion.identity);
+            text.text = globals.piece_stocks[gameObject.name].ToString();
+            textDisplayed = true;
+         }
        }
+
        if((Input.GetMouseButtonDown(1) || Input.GetKeyUp("space")) && pressed){ //right click
           transform.Rotate(0,0,-90); //Clockwise
           times_rotated_cw = (times_rotated_cw + 1) % 4;
@@ -84,7 +131,7 @@ public class drag_drop : MonoBehaviour
 
      void OnMouseUp() {
          //return the dragged generator to its original state
-         Debug.Log(gameObject.name);
+         // Debug.Log(gameObject.name);
          pressed = false;
          transform.position = original_loc;
          Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
@@ -97,7 +144,7 @@ public class drag_drop : MonoBehaviour
         //  Debug.Log(x_index.ToString() + "," + y_index.ToString());
          string coord = x_index.ToString() + "," + y_index.ToString();
          if(globals.reachable_moves.ContainsKey(coord)
-         && stock > 0
+         && globals.piece_stocks[gameObject.name] > 0
          && x_index >= 0 && y_index >= 0 && x_index < globals.BOARD_WIDTH && y_index < globals.BOARD_HEIGHT
          && check_orientation(x_index, y_index, globals.reachable_moves[coord])
          && !globals.occupied_squares.ContainsKey(coord)
@@ -295,12 +342,12 @@ public class drag_drop : MonoBehaviour
     }
 
     void update_stock() {
-      stock--;
+      globals.piece_stocks[gameObject.name]--;
       globals.piece_color_counts[color]--;
       globals.finishedPieces++;
-      Debug.Log(globals.finishedPieces);
-      text.text = stock.ToString();
-      if (stock == 0) {
+      // Debug.Log(globals.finishedPieces);
+      text.text = globals.piece_stocks[gameObject.name].ToString();
+      if (globals.piece_stocks[gameObject.name] == 0) {
         //globals.finishedPieces++;
         if (globals.finishedPieces == globals.numPieces) {
           globals.gameLost = true;
