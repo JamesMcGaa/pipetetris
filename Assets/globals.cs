@@ -150,6 +150,7 @@ public class globals : MonoBehaviour
         {COLORS.ORANGE, 0},
         {COLORS.YELLOW, 0}
       };
+      Destroy(end);
       ended = false;
     }
 }
