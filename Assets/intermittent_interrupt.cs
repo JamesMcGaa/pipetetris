@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class intermittent_interrupt : MonoBehaviour
 {
@@ -93,10 +94,10 @@ Dictionary<COLORS, int> GetColorWeights() {
             COLORS color = globals.board_colors[coord];
 
             if(!color_weights.ContainsKey(color)){
-                color_weights.Add(color, (x_coord+1) * (x_coord+1));
+                color_weights.Add(color, (int)Math.Pow(2, x_coord+1));
             }
             else{
-                color_weights[color] += (x_coord+1) * (x_coord+1);
+                color_weights[color] += (int)Math.Pow(2, x_coord+1);
             }
         }
 
@@ -106,26 +107,26 @@ Dictionary<COLORS, int> GetColorWeights() {
 
  void Disable() {
     Dictionary<COLORS, int> color_weights = GetColorWeights();
-    int total = 0;
-    foreach (COLORS color in color_weights.Keys) {
-      total += color_weights[color];
-    }
-    int x = Random.Range(0, total);
     if(current != null){
         Destroy(current);
         current = null;
     }
-    int bottom = 0;
+    int maxWeight = 0;
     foreach (COLORS color in color_weights.Keys) {
-      if (x >= bottom && x < bottom + color_weights[color]) {
-        current_disabled = color;
-        current =  Instantiate(squares[color], curPosition, Quaternion.identity);
-      }
-      bottom += color_weights[color];
-
-      if (globals.numPieces - globals.finishedPieces == globals.piece_color_counts[current_disabled]) {
-        globals.gameLost = true;
+      if (color_weights[color] > maxWeight) {
+        maxWeight = color_weights[color];
       }
     }
+    foreach (COLORS color in color_weights.Keys) {
+      if (color_weights[color] == maxWeight) {
+        current_disabled = color;
+        current =  Instantiate(squares[color], curPosition, Quaternion.identity);
+        break;
+      }
+    }
+    if (globals.numPieces - globals.finishedPieces == globals.piece_color_counts[current_disabled]) {
+      globals.gameLost = true;
+    }
  }
+
 }
